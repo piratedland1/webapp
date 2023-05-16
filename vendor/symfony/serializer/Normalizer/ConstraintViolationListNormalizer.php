@@ -39,9 +39,6 @@ class ConstraintViolationListNormalizer implements NormalizerInterface, Cacheabl
         $this->nameConverter = $nameConverter;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         if (\array_key_exists(self::PAYLOAD_FIELDS, $context)) {
@@ -105,16 +102,13 @@ class ConstraintViolationListNormalizer implements NormalizerInterface, Cacheabl
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $context
      */
-    public function supportsNormalization(mixed $data, string $format = null): bool
+    public function supportsNormalization(mixed $data, string $format = null /* , array $context = [] */): bool
     {
         return $data instanceof ConstraintViolationListInterface;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return __CLASS__ === static::class;

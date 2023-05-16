@@ -49,6 +49,7 @@ class ShoppingContent extends \Google\Service
   public $collectionstatuses;
   public $conversionsources;
   public $csses;
+  public $customers;
   public $datafeeds;
   public $datafeedstatuses;
   public $freelistingsprogram;
@@ -68,6 +69,7 @@ class ShoppingContent extends \Google\Service
   public $promotions;
   public $pubsubnotificationsettings;
   public $quotas;
+  public $recommendations;
   public $regionalinventory;
   public $regions;
   public $reports;
@@ -951,6 +953,26 @@ class ShoppingContent extends \Google\Service
                   'required' => true,
                 ],
                 'cssDomainId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->customers = new ShoppingContent\Resource\Customers(
+        $this,
+        $this->serviceName,
+        'customers',
+        [
+          'methods' => [
+            'create' => [
+              'path' => '{merchantId}/customers',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'merchantId' => [
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -2455,6 +2477,45 @@ class ShoppingContent extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->recommendations = new ShoppingContent\Resource\Recommendations(
+        $this,
+        $this->serviceName,
+        'recommendations',
+        [
+          'methods' => [
+            'generate' => [
+              'path' => '{merchantId}/recommendations/generate',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'merchantId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'allowedTag' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ],
+                'languageCode' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'reportInteraction' => [
+              'path' => '{merchantId}/recommendations/reportInteraction',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'merchantId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],

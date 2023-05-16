@@ -52,9 +52,9 @@ if (!interface_exists(ClientInterface::class)) {
  */
 final class Psr18Client implements ClientInterface, RequestFactoryInterface, StreamFactoryInterface, UriFactoryInterface, ResetInterface
 {
-    private $client;
-    private $responseFactory;
-    private $streamFactory;
+    private HttpClientInterface $client;
+    private ResponseFactoryInterface $responseFactory;
+    private StreamFactoryInterface $streamFactory;
 
     public function __construct(HttpClientInterface $client = null, ResponseFactoryInterface $responseFactory = null, StreamFactoryInterface $streamFactory = null)
     {
@@ -79,9 +79,14 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
         $this->streamFactory = $streamFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    public function withOptions(array $options): static
+    {
+        $clone = clone $this;
+        $clone->client = $clone->client->withOptions($options);
+
+        return $clone;
+    }
+
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
         try {
@@ -131,9 +136,6 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createRequest(string $method, $uri): RequestInterface
     {
         if ($this->responseFactory instanceof RequestFactoryInterface) {
@@ -151,9 +153,6 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
         throw new \LogicException(sprintf('You cannot use "%s()" as the "nyholm/psr7" package is not installed. Try running "composer require nyholm/psr7".', __METHOD__));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createStream(string $content = ''): StreamInterface
     {
         $stream = $this->streamFactory->createStream($content);
@@ -165,25 +164,16 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
         return $stream;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
     {
         return $this->streamFactory->createStreamFromFile($filename, $mode);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createStreamFromResource($resource): StreamInterface
     {
         return $this->streamFactory->createStreamFromResource($resource);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createUri(string $uri = ''): UriInterface
     {
         if ($this->responseFactory instanceof UriFactoryInterface) {
@@ -214,7 +204,7 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
  */
 class Psr18NetworkException extends \RuntimeException implements NetworkExceptionInterface
 {
-    private $request;
+    private RequestInterface $request;
 
     public function __construct(TransportExceptionInterface $e, RequestInterface $request)
     {
@@ -233,7 +223,7 @@ class Psr18NetworkException extends \RuntimeException implements NetworkExceptio
  */
 class Psr18RequestException extends \InvalidArgumentException implements RequestExceptionInterface
 {
-    private $request;
+    private RequestInterface $request;
 
     public function __construct(TransportExceptionInterface $e, RequestInterface $request)
     {

@@ -292,6 +292,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionHoneycode(array $args = [])
  * @method \Aws\IVS\IVSClient createIVS(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionIVS(array $args = [])
+ * @method \Aws\IVSRealTime\IVSRealTimeClient createIVSRealTime(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionIVSRealTime(array $args = [])
  * @method \Aws\Iam\IamClient createIam(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionIam(array $args = [])
  * @method \Aws\IdentityStore\IdentityStoreClient createIdentityStore(array $args = [])
@@ -458,6 +460,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionNimbleStudio(array $args = [])
  * @method \Aws\OAM\OAMClient createOAM(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOAM(array $args = [])
+ * @method \Aws\OSIS\OSISClient createOSIS(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionOSIS(array $args = [])
  * @method \Aws\Omics\OmicsClient createOmics(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOmics(array $args = [])
  * @method \Aws\OpenSearchServerless\OpenSearchServerlessClient createOpenSearchServerless(array $args = [])
@@ -646,6 +650,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionTransfer(array $args = [])
  * @method \Aws\Translate\TranslateClient createTranslate(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionTranslate(array $args = [])
+ * @method \Aws\VPCLattice\VPCLatticeClient createVPCLattice(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionVPCLattice(array $args = [])
  * @method \Aws\VoiceID\VoiceIDClient createVoiceID(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionVoiceID(array $args = [])
  * @method \Aws\WAFV2\WAFV2Client createWAFV2(array $args = [])
@@ -687,7 +693,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.261.12';
+    const VERSION = '3.269.12';
 
     /** @var array Arguments for creating clients */
     private $args;
